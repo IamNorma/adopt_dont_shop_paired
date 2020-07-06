@@ -1,0 +1,18 @@
+<header><%= link_to "All Pets", "/pets" %><br>
+<%= link_to "All Shelters", "/shelters" %></header>
+
+<h1>Edit <%= @pet.name %> </h1>
+
+<%= form_tag "/pets/#{@pet.id}", method: :patch do %>
+  <%= label_tag :image %>
+  <%= text_field_tag :image_link %><br>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %><br>
+  <%= label_tag :description %>
+  <%= text_field_tag :description %><br>
+  <%= label_tag :approx_age %>
+  <%= text_field_tag :approx_age %><br>
+  <%= label_tag :sex %>
+  <%= text_field_tag :sex %><br>
+  <%= submit_tag "Update Pet" %>
+<% end %>

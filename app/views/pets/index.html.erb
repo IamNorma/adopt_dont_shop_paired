@@ -1,0 +1,13 @@
+<header><%= link_to "All Shelters", "/shelters" %></header>
+
+<h1>All Pets</h1>
+
+<% @pets.each do |pet| %>
+  <%= image_tag(pet.image, alt: pet.name) %><br>
+  <b><p>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
+  <p>The shelter this pet belongs to: <%= link_to "#{pet.shelter_name}", "/shelters/#{pet.shelter_id}"%></p>
+  <p>Sex: <%= pet.sex %></p>
+  <p>Approx. Age: <%= pet.approx_age %></p>
+  <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit"%>
+ <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete%>
+<% end %>
