@@ -6,4 +6,5 @@ class Shelter < ApplicationRecord
   validates_presence_of :zip
 
   has_many :pets
+  has_many :reviews
 end
