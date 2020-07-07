@@ -39,7 +39,7 @@ RSpec.describe 'review edit page' do
     image = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"
 
     visit "/shelters/#{shelter_1.id}/reviews/#{review_1.id}/edit"
-
+    
     fill_in :rating, with: ''
     fill_in :content, with: content
     fill_in :optional_image_link, with: image
