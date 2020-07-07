@@ -30,4 +30,22 @@ RSpec.describe 'review edit page' do
     expect(page).to have_content("#{review_1.content}")
     expect(page).to have_content(rating)
   end
+
+  it "shows an error message if not filling out the edit review fields properly" do
+    shelter_1 = Shelter.create!(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+    review_1 = shelter_1.reviews.create!(title: "Loved it!", rating: 4.5, content: "Had a great time!", image: "https://commons.wikimedia.org/wiki/File:Ljubljana_Slovenia_animal_shelter.JPG")
+
+    content = "Had a so-so time"
+    image = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"
+
+    visit "/shelters/#{shelter_1.id}/reviews/#{review_1.id}/edit"
+
+    fill_in :rating, with: ''
+    fill_in :content, with: content
+    fill_in :optional_image_link, with: image
+    click_button "Edit Review"
+
+    expect(page).to have_content("This is an invalid edit to a review! Please re-enter.")
+    expect(page).to have_button('Edit Review')
+  end
 end
