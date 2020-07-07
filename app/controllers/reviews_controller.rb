@@ -19,9 +19,14 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    review = Review.find(params[:id])
-    review.update(review_params)
-    redirect_to "/shelters/#{review.shelter_id}"
+    @review = Review.find(params[:id])
+    if @review.update(review_params)
+      @review.update(review_params)
+      redirect_to "/shelters/#{@review.shelter_id}"
+    else
+      flash[:alert] = "This is an invalid edit to a review! Please re-enter."
+      render :edit
+    end
   end
 
   def destroy
