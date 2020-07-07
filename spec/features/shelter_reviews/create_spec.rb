@@ -9,7 +9,7 @@ RSpec.describe 'review create page' do
     expect(page).to have_link("Add a new shelter review")
     click_on "Add a new shelter review"
 
-    expect(current_path).to eq("/reviews/new")
+    expect(current_path).to eq("/shelters/#{shelter_1.id}/reviews/new")
 
     title = "A great place"
     rating = 4.5
@@ -20,7 +20,7 @@ RSpec.describe 'review create page' do
     fill_in :title, with: title
     fill_in :rating, with: rating
     fill_in :content, with: content
-    fill_in :optional_image, with: image
+    fill_in :optional_image_link, with: image
 
     click_button "Create Review"
 
@@ -29,6 +29,5 @@ RSpec.describe 'review create page' do
     expect(page).to have_content(title)
     expect(page).to have_content(content)
     expect(page).to have_content(rating)
-    expect(page).to have_content(image)
   end
 end
