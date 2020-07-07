@@ -19,7 +19,6 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    require "pry"; binding.pry
     review = Review.find(params[:id])
     review.update(review_params)
     redirect_to "/shelters/#{review.shelter_id}"
