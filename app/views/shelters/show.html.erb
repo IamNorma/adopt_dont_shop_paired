@@ -20,3 +20,5 @@
   <p>Review Content: <%= review.content %></p>
   <p>Review Image: <%= review.image %></p>
 <% end %>
+
+<%= link_to "Add a new shelter review", "/shelters/#{@shelter.id}/reviews/new" %>
