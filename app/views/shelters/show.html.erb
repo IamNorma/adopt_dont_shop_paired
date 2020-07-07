@@ -18,8 +18,9 @@
   <p>Review Title: <%= review.title %></p>
   <p>Review Rating: <%= review.rating %></p>
   <p>Review Content: <%= review.content %></p>
-  <p>Review Image: <%= review.image %></p>
-  <%= link_to "Edit Shelter Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
+  <p>Review Image: <%= review.image %></p><br>
+  <%= link_to "Edit Shelter Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %><br>
+  <%= button_to "Delete Shelter Review", "/shelters/#{@shelter.id}/reviews/#{review.id}", method: :delete %>
 <% end %>
 
 <%= link_to "Add a new shelter review", "/shelters/#{@shelter.id}/reviews/new" %>
