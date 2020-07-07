@@ -19,6 +19,7 @@
   <p>Review Rating: <%= review.rating %></p>
   <p>Review Content: <%= review.content %></p>
   <p>Review Image: <%= review.image %></p>
+  <%= link_to "Edit Shelter Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
 <% end %>
 
 <%= link_to "Add a new shelter review", "/shelters/#{@shelter.id}/reviews/new" %>
