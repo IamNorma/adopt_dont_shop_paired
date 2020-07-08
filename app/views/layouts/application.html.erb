@@ -12,6 +12,9 @@
     <% flash.each do |type, message| %>
       <p><%= message %></p>
     <% end %>
+    <header><%= link_to "All Pets", "/pets" %><br>
+    <%= link_to "All Shelters", "/shelters" %><br>
+    <p>Pets Favorited:</p><%= @favorite_count %></header>
 
     <%= yield %>
   </body>
