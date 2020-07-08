@@ -1,5 +1,6 @@
-<h2>Enter a new Review:</h2>
+<section class='title'><h2>Enter a new Review:</h2></section>
 
+<section class='form'>
   <%= form_tag "/shelters/#{@shelter_id}" do %>
     <%= label_tag :title %>
     <%= text_field_tag :title %><br>
@@ -11,3 +12,4 @@
     <%= text_field_tag :optional_image_link %><br>
     <%= submit_tag "Create Review" %>
   <% end %>
+</section>

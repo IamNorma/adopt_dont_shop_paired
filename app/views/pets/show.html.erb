@@ -1,10 +1,13 @@
+<section class='pet-details'>
 <h1>Pet Name: <%= @pet.name %></h1>
 <%= image_tag(@pet.image, alt: @pet.name, method: :get) %>
 <p>Pet Description: <%= @pet.description %></p>
 <p>Pet Approx. Age: <%= @pet.approx_age %></p>
 <p>Pet Sex: <%= @pet.sex %></p>
 <p>Pet Adoptable Status: <%= @pet.adoptable? %></p>
+</section>
 
+<section class="clickables">
 <a href="/pets/<%= @pet.id %>/edit">Update Pet</a>
 <%= button_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %>
-<%= link_to "Favorite This Pet", @favorite.increment %>
+</section>
