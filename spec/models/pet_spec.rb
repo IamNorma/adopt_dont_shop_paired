@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe Pet do
   describe 'validations' do
     it { should validate_presence_of :name }
@@ -8,5 +10,7 @@ RSpec.describe Pet do
 
   describe 'relationships' do
     it { should belong_to :shelter }
+    it { should have_many :favorite_pets }
+    it { should have_many(:favorites).through(:favorite_pets) }
   end
 end
