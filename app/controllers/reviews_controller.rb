@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
       redirect_to "/shelters/#{shelter.id}"
     else
       flash[:alert] = "This is an invalid review! Please re-enter."
-      render :new
+      redirect_to "/shelters/#{shelter.id}/reviews/new"
     end
   end
 
