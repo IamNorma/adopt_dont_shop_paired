@@ -6,6 +6,9 @@ class Pet < ApplicationRecord
 
   belongs_to :shelter
 
+  has_many :favorite_pets
+  has_many :favorites, through: :favorite_pets
+
   def adoptable?
     if self.status == true
       "Adoptable"
