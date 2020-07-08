@@ -6,21 +6,27 @@ RSpec.describe "Pets Edit" do
     pet_1 = shelter_1.pets.create(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/afghanhound_dog_pictures_.jpg", name: "Fido", approx_age: 3, sex: "F", shelter_name: shelter_1.name, description: "A furry friend!", status: true)
 
     visit "/pets/#{pet_1.id}"
-
-    expect(page).to have_content("Update Pet")
     expect(page).to_not have_content("Zorba")
-    click_on "Update Pet"
+
+    within '.clickables' do
+      expect(page).to have_content("Update Pet")
+      click_on "Update Pet"
+    end
 
     expect(current_path).to eq("/pets/#{pet_1.id}/edit")
 
-    fill_in :name, with: "Zorba"
-    fill_in :description, with: "Super Fuzzy"
-    fill_in :approx_age, with: 2
-    fill_in :sex, with: "M"
-
-    click_on "Update Pet"
+    within '.form' do
+      fill_in :name, with: "Zorba"
+      fill_in :description, with: "Super Fuzzy"
+      fill_in :approx_age, with: 2
+      fill_in :sex, with: "M"
+      click_on "Update Pet"
+    end
 
     expect(current_path).to eq("/pets/#{pet_1.id}")
-    expect(page).to have_content("Zorba")
+
+    within '.pet-details' do
+      expect(page).to have_content("Zorba")
+    end
   end
 end

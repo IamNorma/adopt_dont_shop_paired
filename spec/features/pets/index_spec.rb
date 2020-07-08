@@ -8,14 +8,16 @@ RSpec.describe 'pets index page' do
     dog_2 = shelter_2.pets.create!(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/husky_sideways_dog_pictures_.jpg", name: "Zorba", approx_age: 2, sex: "M", shelter_name: shelter_2.name, status: true)
 
     visit "/pets"
-    expect(page).to have_content(dog_1.name)
-    expect(page).to have_content(dog_1.shelter_name)
-    expect(page).to have_content(dog_1.sex)
-    expect(page).to have_content(dog_1.approx_age)
 
-    expect(page).to have_content(dog_2.name)
-    expect(page).to have_content(dog_2.shelter_name)
-    expect(page).to have_content(dog_2.sex)
-    expect(page).to have_content(dog_2.approx_age)
+    within '.pet-details' do
+      expect(page).to have_content(dog_1.name)
+      expect(page).to have_content(dog_1.shelter_name)
+      expect(page).to have_content(dog_1.sex)
+      expect(page).to have_content(dog_1.approx_age)
+      expect(page).to have_content(dog_2.name)
+      expect(page).to have_content(dog_2.shelter_name)
+      expect(page).to have_content(dog_2.sex)
+      expect(page).to have_content(dog_2.approx_age)
+    end
   end
 end
