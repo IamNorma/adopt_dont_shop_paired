@@ -1,6 +1,3 @@
-<header><%= link_to "All Pets", "/pets" %><br>
-<%= link_to "All Shelters", "/shelters" %></header>
-
 <h1>Edit <%= @shelter.name %> </h1>
 
 <%= form_tag "/shelters/#{@shelter.id}", method: :patch do %>

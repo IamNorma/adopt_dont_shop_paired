@@ -7,20 +7,27 @@ RSpec.describe "Pets Edit" do
 
     visit "/pets/#{pet_1.id}"
 
-    expect(page).to have_content("Update Pet")
     expect(page).to_not have_content("Zorba")
-    click_on "Update Pet"
+
+    within '.clickables' do
+      expect(page).to have_content("Update Pet")
+      click_on "Update Pet"
+    end
 
     expect(current_path).to eq("/pets/#{pet_1.id}/edit")
 
-    fill_in :name, with: "Zorba"
-    fill_in :description, with: "Super Fuzzy"
-    fill_in :approx_age, with: 2
-    fill_in :sex, with: "M"
-
-    click_on "Update Pet"
+    within '.form' do
+       fill_in :name, with: "Zorba"
+       fill_in :description, with: "Super Fuzzy"
+       fill_in :approx_age, with: 2
+       fill_in :sex, with: "M"
+       click_on "Update Pet"
+     end
 
     expect(current_path).to eq("/pets/#{pet_1.id}")
-    expect(page).to have_content("Zorba")
+
+    within '.pet-details' do
+      expect(page).to have_content("Zorba")
+    end
   end
 end

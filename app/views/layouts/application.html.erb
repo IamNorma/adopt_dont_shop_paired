@@ -9,10 +9,12 @@
   </head>
 
   <body>
+    <section class="messages">
     <% flash.each do |type, message| %>
       <p><%= message %></p>
-    <% end %>
-
+    <% end %></section>
+    <header class="nav-bar"><%= link_to "All Pets", "/pets" %><br>
+      <%= link_to "All Shelters", "/shelters" %><br></header>
     <%= yield %>
   </body>
 </html>

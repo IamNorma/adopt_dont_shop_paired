@@ -1,18 +1,18 @@
-<header><%= link_to "All Pets", "/pets" %><br>
-<%= link_to "All Shelters", "/shelters" %></header>
-
-<h1>Shelter Name: <%= @shelter.name %></h1>
+<section class="shelter-details"><h1>Shelter Name: <%= @shelter.name %></h1>
 <p>Shelter Address: <%= @shelter.address %></p>
 <p>Shelter City: <%= @shelter.city %></p>
 <p>Shelter State: <%= @shelter.state %></p>
 <p>Shelter Zip: <%= @shelter.zip %></p>
+</section>
 
+<section class="clickables">
 <a href="/shelters/<%= @shelter.id %>/edit">Update Shelter</a><br>
-
 <%= link_to "Show Pets", "/shelters/#{@shelter.id}/pets" %>
-
 <%= button_to "Delete Shelter", "/shelters/#{@shelter.id}", method: :delete %>
+<%= link_to "Add a new shelter review", "/shelters/#{@shelter.id}/reviews/new" %>
+</section>
 
+<section class="review-details">
 <h2>Reviews:</h2>
 <% @reviews.each do |review| %>
   <p>Review Title: <%= review.title %></p>
@@ -22,5 +22,4 @@
   <%= link_to "Edit Shelter Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %><br>
   <%= button_to "Delete Shelter Review", "/shelters/#{@shelter.id}/reviews/#{review.id}", method: :delete %>
 <% end %>
-
-<%= link_to "Add a new shelter review", "/shelters/#{@shelter.id}/reviews/new" %>
+</section>
