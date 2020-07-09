@@ -1,12 +1,15 @@
 <section class="title"><h1>All Pets</h1></section>
 
 <section class="pet-details"><% @pets.each do |pet| %>
+  <section id=pet-<%= pet.id %>>
   <%= image_tag(pet.image, alt: pet.name) %><br>
   <b><p>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
   <p>The shelter this pet belongs to: <%= link_to "#{pet.shelter_name}", "/shelters/#{pet.shelter_id}"%></p>
   <p>Sex: <%= pet.sex %></p>
   <p>Approx. Age: <%= pet.approx_age %></p>
+  <%= button_to "Add Pet to Favorites", "/favorites/#{pet.id}", method: :patch %>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit"%>
  <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete%>
+ </section>
 <% end %>
 </section>
