@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :find_favorite_count
+  before_action :check_for_favorite
 
   private
 
-  def find_favorite_count
-    @favorite_count = Favorite.all.count
+  def check_for_favorite
+    @favorite = Favorite.new
   end
 end

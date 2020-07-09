@@ -6,6 +6,7 @@ class PetsController < ApplicationController
   end
 
   def show
+    require "pry"; binding.pry
     @pet = Pet.find(params[:id])
   end
 
