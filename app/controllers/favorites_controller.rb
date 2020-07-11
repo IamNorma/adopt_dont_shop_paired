@@ -11,8 +11,12 @@ class FavoritesController < ApplicationController
   end
 
   def index
-    @favorited_pets = favorites.contents.map do |id|
-      Pet.find(id)
+    if favorites.contents.empty?
+      @no_pets = "No pets have been favorited yet"
+    else
+      @favorited_pets = favorites.contents.map do |id|
+        Pet.find(id)
+      end
     end
   end
 
@@ -24,5 +28,10 @@ class FavoritesController < ApplicationController
     else
       redirect_to "favorites"
     end 
+  end
+
+  def destroy_all
+    favorites.contents.clear
+    redirect_to "/favorites"
   end
 end
