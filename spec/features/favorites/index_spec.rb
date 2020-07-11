@@ -71,7 +71,24 @@ RSpec.describe "Favorites index page" do
   end
 
   it "shows no favorites when no pets have been favorited" do
+    visit '/pets'
+    within("#pet-#{@pet_1.id}") do
+      click_button "Add Pet to Favorites"
+    end
+    within("#pet-#{@pet_2.id}") do
+      click_button "Add Pet to Favorites"
+    end
+
     visit '/favorites'
+
+    within ("#pet-#{@pet_1.id}") do
+      click_on "Remove Pet From Favorites"
+    end
+
+    within ("#pet-#{@pet_2.id}") do
+      click_on "Remove Pet From Favorites"
+    end
+
     within '.nav-bar' do
       expect(page).to have_content("Pets Favorited: 0")
     end
@@ -81,5 +98,55 @@ RSpec.describe "Favorites index page" do
     expect(page).to_not have_content("Zorba")
 
     expect(page).to have_content("No pets have been favorited yet")
+  end
+
+  it "removes all favorites from the favorites page" do
+    visit '/pets'
+    within("#pet-#{@pet_1.id}") do
+      click_button "Add Pet to Favorites"
+    end
+    within("#pet-#{@pet_2.id}") do
+      click_button "Add Pet to Favorites"
+    end
+
+    visit '/favorites'
+
+    expect(page).to have_content("Remove all Favorited Pets")
+    click_on "Remove all Favorited Pets"
+    expect(current_path).to eq("/favorites")
+
+    expect(page).to_not have_content("Remove Pet From Favorites")
+    expect(page).to_not have_content("Fido")
+    expect(page).to_not have_content("Zorba")
+
+    expect(page).to have_content("No pets have been favorited yet")
+
+    within '.nav-bar' do
+      expect(page).to have_content("Pets Favorited: 0")
+    end
+
+    visit '/pets'
+    within("#pet-#{@pet_1.id}") do
+      click_button "Add Pet to Favorites"
+    end
+    within("#pet-#{@pet_2.id}") do
+      click_button "Add Pet to Favorites"
+    end
+
+    visit '/favorites'
+
+    expect(page).to have_content("Remove all Favorited Pets")
+    click_on "Remove all Favorited Pets"
+    expect(current_path).to eq("/favorites")
+
+    expect(page).to_not have_content("Remove Pet From Favorites")
+    expect(page).to_not have_content("Fido")
+    expect(page).to_not have_content("Zorba")
+
+    expect(page).to have_content("No pets have been favorited yet")
+
+    within '.nav-bar' do
+      expect(page).to have_content("Pets Favorited: 0")
+    end
   end
 end
