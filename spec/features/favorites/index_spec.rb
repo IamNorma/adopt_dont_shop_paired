@@ -69,4 +69,17 @@ RSpec.describe "Favorites index page" do
     expect(page).to have_content("Fido")
     expect(page).to have_content("Zorba")
   end
+
+  it "shows no favorites when no pets have been favorited" do
+    visit '/favorites'
+    within '.nav-bar' do
+      expect(page).to have_content("Pets Favorited: 0")
+    end
+
+    expect(page).to_not have_content("Remove Pet From Favorites")
+    expect(page).to_not have_content("Fido")
+    expect(page).to_not have_content("Zorba")
+
+    expect(page).to have_content("No pets have been favorited yet")
+  end
 end
