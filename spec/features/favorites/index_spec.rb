@@ -21,6 +21,8 @@ RSpec.describe "Favorites index page" do
       click_button "Add Pet to Favorites"
     end
 
+    visit '/pets'
+
     within("#pet-#{@pet_2.id}") do
       click_button "Add Pet to Favorites"
     end
@@ -45,6 +47,7 @@ RSpec.describe "Favorites index page" do
     within("#pet-#{@pet_1.id}") do
       click_button "Add Pet to Favorites"
     end
+    visit '/pets'
     within("#pet-#{@pet_2.id}") do
       click_button "Add Pet to Favorites"
     end
@@ -57,9 +60,6 @@ RSpec.describe "Favorites index page" do
       expect(page).to have_content("Remove Pet From Favorites")
       click_on "Remove Pet From Favorites"
     end
-
-    expect(current_path).to eq("/favorites")
-    expect(page).to_not have_content("Fido")
 
     within '.nav-bar' do
       expect(page).to have_content("Pets Favorited: 1")
@@ -75,6 +75,7 @@ RSpec.describe "Favorites index page" do
     within("#pet-#{@pet_1.id}") do
       click_button "Add Pet to Favorites"
     end
+    visit '/pets'
     within("#pet-#{@pet_2.id}") do
       click_button "Add Pet to Favorites"
     end
@@ -85,6 +86,8 @@ RSpec.describe "Favorites index page" do
       click_on "Remove Pet From Favorites"
     end
 
+    visit '/favorites'
+
     within ("#pet-#{@pet_2.id}") do
       click_on "Remove Pet From Favorites"
     end
@@ -92,6 +95,8 @@ RSpec.describe "Favorites index page" do
     within '.nav-bar' do
       expect(page).to have_content("Pets Favorited: 0")
     end
+
+    visit '/favorites'
 
     expect(page).to_not have_content("Remove Pet From Favorites")
     expect(page).to_not have_content("Fido")
@@ -105,6 +110,7 @@ RSpec.describe "Favorites index page" do
     within("#pet-#{@pet_1.id}") do
       click_button "Add Pet to Favorites"
     end
+    visit '/pets'
     within("#pet-#{@pet_2.id}") do
       click_button "Add Pet to Favorites"
     end
@@ -129,6 +135,7 @@ RSpec.describe "Favorites index page" do
     within("#pet-#{@pet_1.id}") do
       click_button "Add Pet to Favorites"
     end
+    visit '/pets'
     within("#pet-#{@pet_2.id}") do
       click_button "Add Pet to Favorites"
     end

@@ -7,7 +7,7 @@ class FavoritesController < ApplicationController
     session[:favorites] = favorites.contents
     quantity = favorites.count
     flash[:notice] = "You now have #{pluralize((quantity), "pet")} in your favorites!"
-    redirect_to '/pets'
+    redirect_to "/pets/#{pet.id}"
   end
 
   def index
@@ -26,8 +26,8 @@ class FavoritesController < ApplicationController
       flash[:notice] = "You have removed this pet from your favorites"
       redirect_to "/pets/#{pet.id}"
     else
-      redirect_to "favorites"
-    end 
+      redirect_to "/favorites"
+    end
   end
 
   def destroy_all
