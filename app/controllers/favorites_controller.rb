@@ -9,4 +9,10 @@ class FavoritesController < ApplicationController
     flash[:notice] = "You now have #{pluralize((quantity), "pet")} in your favorites!"
     redirect_to '/pets'
   end
+
+  def index
+    @favorited_pets = favorites.contents.map do |id|
+      Pet.find(id)
+    end
+  end
 end
