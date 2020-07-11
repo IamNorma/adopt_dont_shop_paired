@@ -3,6 +3,7 @@
 <% @favorited_pets.each do |pet| %>
   <section id=pet-<%= pet.id %>>
   <%= image_tag(pet.image, alt: pet.name) %><br>
-  <b><p>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
+  <b><p>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p><br>
+  <%= link_to "Remove Pet From Favorites", "/favorites/#{pet.id}", method: :delete %>
   </section>
 <% end %>
