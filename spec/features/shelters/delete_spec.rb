@@ -6,10 +6,14 @@ RSpec.describe 'When I visit the shelter show details page' do
 
     visit "/shelters/#{shelter_1.id}"
 
-    expect(page).to have_content("Joe's Shelter")
-    expect(page).to have_button("Delete Shelter")
+    within '.shelter-details' do
+      expect(page).to have_content("Joe's Shelter")
+    end
 
-    click_button "Delete Shelter"
+    within '.clickables' do
+      expect(page).to have_button("Delete Shelter")
+      click_button "Delete Shelter"
+    end
 
     expect(current_path).to eq("/shelters")
     expect(page).to_not have_content("Joe's Shelter")

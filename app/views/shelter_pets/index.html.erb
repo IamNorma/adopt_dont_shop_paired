@@ -1,8 +1,6 @@
-<header><%= link_to "All Pets", "/pets" %><br>
-<%= link_to "All Shelters", "/shelters" %></header>
+<section class="title"><h1>Pets That Belong to <%= link_to "#{@shelter.name}", "/shelters/#{@shelter_id}" %></h1></section>
 
-<h1>Pets That Belong to <%= link_to "#{@shelter.name}", "/shelters/#{@shelter_id}" %></h1>
-
+<section class="pet-details">
 <% @pets.each do |pet| %>
   <%= image_tag(pet.image, alt: pet.name) %><br>
   <br>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
@@ -14,5 +12,8 @@
   <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete%>
   <p>The shelter this pet belongs to: <%= link_to "#{pet.shelter_name}", "/shelters/#{pet.shelter_id}"%></p>
 <% end %>
+</section>
 
+<section class="clickables">
 <%= link_to "Create Pet", "pets/new" %><br>
+</section>
