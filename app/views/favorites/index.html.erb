@@ -2,6 +2,9 @@
 
 <%= @no_pets %>
 
+<% @favorited_pets == true %>
+<%= link_to "Remove all Favorited Pets", "/favorites", method: :delete %>
+
 <% @favorited_pets && @favorited_pets.each do |pet| %>
   <section id=pet-<%= pet.id %>>
   <%= image_tag(pet.image, alt: pet.name) %><br>
