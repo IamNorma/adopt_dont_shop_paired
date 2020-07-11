@@ -7,5 +7,10 @@
 
 <section class="clickables">
 <a href="/pets/<%= @pet.id %>/edit">Update Pet</a>
+<% if favorites.contents.include?(@pet.id) %>
+  <%= button_to "Remove From Favorites", "/favorites/#{@pet.id}", method: :delete %>
+<% else %>
+  <%= button_to "Add Pet to Favorites", "/favorites/#{@pet.id}", method: :patch %>
+<% end %>
 <%= button_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %>
 </section>

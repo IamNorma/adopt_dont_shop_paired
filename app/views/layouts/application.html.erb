@@ -15,7 +15,7 @@
     <% end %></section>
     <header class="nav-bar"><%= link_to "All Pets", "/pets" %><br>
       <%= link_to "All Shelters", "/shelters" %><br>
-    <p>Pets Favorited: <%= favorites.count %> </p></header>
+    <a href="/favorites">Pets Favorited: <%= favorites.count %></a></header>
     <%= yield %>
   </body>
 </html>
