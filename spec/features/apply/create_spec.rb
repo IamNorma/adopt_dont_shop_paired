@@ -31,29 +31,28 @@ RSpec.describe "Creating a pet adoption application" do
     within '.dropdown' do
       select("Zorba")
       select("Fido")
-    end
-
-    within '.form' do
       fill_in :name, with: "Person"
       fill_in :address, with: "123 Nowhere Pl."
       fill_in :city, with: "Denver"
       fill_in :state, with: "CO"
-      fill_in :zip, with: "80002"
+      fill_in :zip, with: 80002
       fill_in :phone, with: "123-456-7890"
       fill_in :description, with: "I love animals"
       click_on "Submit"
     end
 
+    expect(current_path).to eq("/favorites")
+
     within '.messages' do
       expect(page).to have_content("Application Submitted")
     end
 
-    expect(current_path).to eq("/favorites")
     expect(page).to_not have_content("Fido")
     expect(page).to_not have_content("Zorba")
 
     within '.nav-bar' do
       expect(page).to have_content("Pets Favorited: 0")
     end
+    save_and_open_page
   end
 end
