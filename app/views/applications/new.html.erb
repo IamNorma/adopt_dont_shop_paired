@@ -1,0 +1,4 @@
+<section class="dropdown"><% @fav.each do |pet| %>
+  <%= check_box_tag "pets[]", pet.id %>
+  <%= label_tag "#{pet.name}" %>
+<% end %></section>

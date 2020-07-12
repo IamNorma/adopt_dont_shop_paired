@@ -3,6 +3,7 @@
 <%= @no_pets %>
 
 <% @favorited_pets == true %>
+<%= link_to "Adopt your favorited pets", "/applications/new" %>
 <%= link_to "Remove all Favorited Pets", "/favorites", method: :delete %>
 
 <% @favorited_pets && @favorited_pets.each do |pet| %>
