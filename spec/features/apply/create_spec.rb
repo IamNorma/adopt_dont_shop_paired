@@ -47,8 +47,10 @@ RSpec.describe "Creating a pet adoption application" do
       expect(page).to have_content("Application Submitted")
     end
 
-    expect(page).to_not have_content("Fido")
-    expect(page).to_not have_content("Zorba")
+    within '.favorited-pets' do
+      expect(page).to_not have_content("Fido")
+      expect(page).to_not have_content("Zorba")
+    end
 
     within '.nav-bar' do
       expect(page).to have_content("Pets Favorited: 0")
