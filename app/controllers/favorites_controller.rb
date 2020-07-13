@@ -18,6 +18,10 @@ class FavoritesController < ApplicationController
         Pet.find(id)
       end
     end
+    @applied_pets = []
+    PetApplication.all.each do |pet|
+     @applied_pets << Pet.find(pet.pet_id)
+    end
   end
 
   def destroy
