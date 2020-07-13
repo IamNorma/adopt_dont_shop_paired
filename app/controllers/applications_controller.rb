@@ -12,8 +12,13 @@ class ApplicationsController < ApplicationController
     if app.save
       flash[:notice] = "Application Submitted"
       redirect_to "/favorites"
+      pets = []
       params[:pets].each do |pet_id|
-        favorites.contents.delete(pet_id.to_i)
+        pets << Pet.find(pet_id)
+      end
+      pets.each do |pet|
+        PetApplication.create(pet: pet, application: app)
+        favorites.contents.delete(pet.id.to_i)
       end
     end
   end
