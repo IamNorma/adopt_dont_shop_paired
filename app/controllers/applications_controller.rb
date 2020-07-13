@@ -26,6 +26,11 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def show
+    @pets = Pet.joins(:applications).where("applications.id = ?", "#{params[:id]}")
+    @application = Application.find(params[:id])
+  end
+
   private
 
   def application_params
