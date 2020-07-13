@@ -35,6 +35,10 @@ class PetsController < ApplicationController
     redirect_to "/pets"
   end
 
+  def applications
+    @applications = Application.joins(:pets).where("pets.id = ?", "#{params[:id]}")
+  end
+
   private
 
   def pet_params
