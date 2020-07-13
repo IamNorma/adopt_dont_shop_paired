@@ -20,6 +20,9 @@ class ApplicationsController < ApplicationController
         PetApplication.create(pet: pet, application: app)
         favorites.contents.delete(pet.id.to_i)
       end
+    else
+      flash[:alert] = "Application Not Submitted, Information Incomplete"
+      redirect_to "/applications/new"
     end
   end
 
