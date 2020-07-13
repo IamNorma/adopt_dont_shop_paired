@@ -8,8 +8,9 @@
 <%= @application.description %><br>
 </section>
 
-<section class="pet-details">
 <% @pets.each do |pet| %>
-  <p>Pet Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
+  <section id=pet-<%= pet.id %>>
+    <p>Pet Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
+    <%= link_to "Approve Application" "/pets/#{pet.id}", method: :patch %>
+  </section>
 <% end %>
-</section>
