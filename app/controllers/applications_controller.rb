@@ -15,6 +15,9 @@ class ApplicationsController < ApplicationController
       params[:pets].each do |pet_id|
         favorites.contents.delete(pet_id.to_i)
       end
+    else
+      flash[:alert] = "Application Not Submitted, Information Incomplete"
+      redirect_to "/applications/new"
     end
   end
 
