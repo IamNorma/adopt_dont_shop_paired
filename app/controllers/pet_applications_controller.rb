@@ -8,6 +8,8 @@ class PetApplicationsController < ApplicationController
     pet_app = PetApplication.where("pet_id = ?", params[:pet_id]).where("application_id = ?", params[:application_id])
     pet_app.first.status = true
     pet_app.first.save
+    pet.status = false
+    pet.save
     redirect_to "/pets/#{pet.id}"
   end
 
