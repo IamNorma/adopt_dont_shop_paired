@@ -5,7 +5,15 @@ class PetApplicationsController < ApplicationController
 
   def update
     pet = Pet.find(params[:pet_id])
-    app = Application.find(params[:application_id])
+    pet_app = PetApplication.where("pet_id = ?", params[:pet_id]).where("application_id = ?", params[:application_id])
+    pet_app.first.status = true
+    pet_app.first.save
     redirect_to "/pets/#{pet.id}"
+  end
+
+  private
+
+  def pet_app_params
+    params.permit(:status, :pet_id, :application_id)
   end
 end
