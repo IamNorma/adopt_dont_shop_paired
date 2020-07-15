@@ -13,6 +13,8 @@
     <p>Pet Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
     <% if pet.status == true %>
       <%= link_to "Approve Application", "/pets/#{pet.id}/applications/#{@application.id}", method: :patch %>
+    <% else %>
+      <%= link_to "Unapprove Application", "/pets/#{pet.id}/applications/#{@application.id}", method: :patch %>
     <% end %>
   </section>
 <% end %>
