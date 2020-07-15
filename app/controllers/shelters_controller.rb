@@ -36,7 +36,7 @@ class SheltersController < ApplicationController
       app.destroy
     end
     shelter.pets.destroy_all
-    shelter.reviews.delete_all
+    shelter.reviews.destroy_all
     shelter.destroy
     redirect_to "/shelters"
   end

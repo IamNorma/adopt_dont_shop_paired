@@ -72,4 +72,22 @@ RSpec.describe 'When I visit the shelter show details page' do
     expect(page).to_not have_content("#{pet_1.name}")
     expect(page).to_not have_content("#{pet_2.name}")
   end
+
+  it "deletes all shelter reviews when a shelter is deleted" do
+    shelter_1 = Shelter.create!(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+    review_1 = shelter_1.reviews.create!(title: "Loved it!", rating: 4.5, content: "Had a great time!", image: "https://commons.wikimedia.org/wiki/File:Ljubljana_Slovenia_animal_shelter.JPG")
+
+    visit "/shelters/#{shelter_1.id}"
+
+    expect(Review.all.include?(review_1)).to eq(true)
+
+    expect(page).to have_content("#{review_1.title}")
+    expect(review_1.title).to eq("Loved it!")
+
+    within '.clickables' do
+      click_on("Delete Shelter")
+    end
+
+    expect(Review.all.include?(review_1)).to eq(false)
+  end
 end
