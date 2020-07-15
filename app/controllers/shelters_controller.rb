@@ -28,7 +28,14 @@ class SheltersController < ApplicationController
 
   def destroy
     shelter = Shelter.find(params[:id])
-    shelter.pets.delete_all
+    applications = []
+    applications = shelter.pets.flat_map do |pet|
+      applications << PetApplication.where("pet_id = ?", pet.id)
+    end.flatten
+    applications.each do |app|
+      app.destroy
+    end
+    shelter.pets.destroy_all
     shelter.reviews.delete_all
     shelter.destroy
     redirect_to "/shelters"
