@@ -46,4 +46,105 @@ RSpec.describe "Pet application show page" do
     expect(page).to have_content("#{pet_2.name}")
     expect(page).to have_link("#{pet_2.name}")
   end
+
+  it "displays link to approve application" do
+    shelter_1 = Shelter.create!(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+    pet_1 = shelter_1.pets.create(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/afghanhound_dog_pictures_.jpg", name: "Fido", approx_age: 3, sex: "F", shelter_name: shelter_1.name, description: "A furry friend!", status: true)
+    pet_2 = shelter_1.pets.create!(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/husky_sideways_dog_pictures_.jpg", name: "Zorba", approx_age: 2, sex: "M", shelter_name: shelter_1.name, status: true)
+    application1 = Application.create!(name: "Bob",
+      address: "123 Fake St", city: "San Diego", state: "CA", zip: 92126,
+      phone: "123-456-7890", description: "I love animals!")
+    application2 = Application.create!(name: "Jill",
+      address: "1235 Fake St", city: "Denver", state: "CA", zip: 92126,
+      phone: "123-456-7890", description: "I love animals!")
+    PetApplication.create(pet: pet_1, application: application1)
+    PetApplication.create(pet: pet_2, application: application1)
+    PetApplication.create(pet: pet_2, application: application2)
+
+    visit "/pets/#{pet_1.id}"
+
+    expect(page).to_not have_content("Pending")
+
+    visit "/applications/#{application1.id}"
+
+    within "#pet-#{pet_1.id}" do
+      expect(page).to have_link("Approve Application")
+      click_on "Approve Application"
+    end
+
+
+    expect(current_path).to eq("/pets/#{pet_1.id}")
+
+    expect(page).to have_content("Pending Adoption")
+    expect(page).to have_content("On hold for #{application1.name}")
+  end
+
+  it 'restricts pets from having more than one approved application at a time' do
+    shelter_1 = Shelter.create!(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+    pet_1 = shelter_1.pets.create(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/afghanhound_dog_pictures_.jpg", name: "Fido", approx_age: 3, sex: "F", shelter_name: shelter_1.name, description: "A furry friend!", status: true)
+    pet_2 = shelter_1.pets.create!(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/husky_sideways_dog_pictures_.jpg", name: "Zorba", approx_age: 2, sex: "M", shelter_name: shelter_1.name, status: true)
+    application1 = Application.create!(name: "Bob",
+      address: "123 Fake St", city: "San Diego", state: "CA", zip: 92126,
+      phone: "123-456-7890", description: "I love animals!")
+    application2 = Application.create!(name: "Jill",
+      address: "1235 Fake St", city: "Denver", state: "CA", zip: 92126,
+      phone: "123-456-7890", description: "I love animals!")
+    PetApplication.create(pet: pet_1, application: application1)
+    PetApplication.create(pet: pet_2, application: application1)
+    PetApplication.create(pet: pet_2, application: application2)
+
+    visit "/applications/#{application1.id}"
+
+    within "#pet-#{pet_2.id}" do
+      expect(page).to have_link("Approve Application")
+      click_on "Approve Application"
+    end
+
+    visit "/applications/#{application2.id}"
+
+    within "#pet-#{pet_2.id}" do
+      expect(page).to_not have_link("Approve Application")
+    end
+  end
+
+  it 'shows link to unapprove' do
+    shelter_1 = Shelter.create!(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+    pet_1 = shelter_1.pets.create(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/afghanhound_dog_pictures_.jpg", name: "Fido", approx_age: 3, sex: "F", shelter_name: shelter_1.name, description: "A furry friend!", status: true)
+    pet_2 = shelter_1.pets.create!(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/husky_sideways_dog_pictures_.jpg", name: "Zorba", approx_age: 2, sex: "M", shelter_name: shelter_1.name, status: true)
+    application1 = Application.create!(name: "Bob",
+      address: "123 Fake St", city: "San Diego", state: "CA", zip: 92126,
+      phone: "123-456-7890", description: "I love animals!")
+    application2 = Application.create!(name: "Jill",
+      address: "1235 Fake St", city: "Denver", state: "CA", zip: 92126,
+      phone: "123-456-7890", description: "I love animals!")
+    PetApplication.create(pet: pet_1, application: application1)
+    PetApplication.create(pet: pet_2, application: application1)
+    PetApplication.create(pet: pet_2, application: application2)
+
+    visit "/applications/#{application1.id}"
+
+    within "#pet-#{pet_2.id}" do
+      expect(page).to have_link("Approve Application")
+      click_on "Approve Application"
+    end
+
+    visit "/applications/#{application1.id}"
+
+    within "#pet-#{pet_2.id}" do
+      expect(page).to_not have_link("Approve Application")
+      expect(page).to have_link("Unapprove Application")
+      click_on "Unapprove Application"
+    end
+
+    expect(current_path).to eq("/applications/#{application1.id}")
+
+    within "#pet-#{pet_2.id}" do
+      expect(page).to have_link("Approve Application")
+    end
+
+    visit "/pets/#{pet_2.id}"
+
+    expect(page).to have_content("Adoptable")
+    expect(page).to_not have_content("On hold for #{application1.name}")
+  end
 end

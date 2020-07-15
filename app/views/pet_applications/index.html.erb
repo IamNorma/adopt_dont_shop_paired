@@ -1,3 +1,7 @@
 <% if @pet.applications.empty? %>
   <p>There are no applications for this pet.</p>
+<% else %>
+  <% @pet.applications.each do |application| %>
+    <p>Name on the application: <%= link_to "#{application.name}", "/application/#{application.id}"%></p>
+  <% end %>
 <% end %>

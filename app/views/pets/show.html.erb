@@ -3,7 +3,13 @@
 <p>Pet Description: <%= @pet.description %></p>
 <p>Pet Approx. Age: <%= @pet.approx_age %></p>
 <p>Pet Sex: <%= @pet.sex %></p>
-<p>Pet Adoptable Status: <%= @pet.adoptable? %></p></section>
+<% if @pet_app.nil? %>
+  <p>Pet Adoptable Status: "Adoptable" </p>
+<% else %>
+  <p>Pet Adoptable Status: <%= @pet_app.adoptable? %></p>
+    <p>On hold for <%= @application.name %></p>
+<% end %>
+</section>
 
 <section class="clickables">
 <a href="/pets/<%= @pet.id %>/edit">Update Pet</a>

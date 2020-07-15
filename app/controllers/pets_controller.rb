@@ -7,6 +7,10 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
+    temp_pet_app = PetApplication.where("pet_id = ?", params[:id]).where("status = ?", true)
+    @pet_app = temp_pet_app.first
+    @application = Application.find(@pet_app.application_id) if !@pet_app.nil?
+
   end
 
   def create
@@ -33,10 +37,6 @@ class PetsController < ApplicationController
   def destroy
     Pet.destroy(params[:id])
     redirect_to "/pets"
-  end
-
-  def applications
-    @applications = Application.joins(:pets).where("pets.id = ?", "#{params[:id]}")
   end
 
   private
