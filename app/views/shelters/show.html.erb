@@ -8,7 +8,12 @@
 <section class="clickables">
 <a href="/shelters/<%= @shelter.id %>/edit">Update Shelter</a><br>
 <%= link_to "Show Pets", "/shelters/#{@shelter.id}/pets" %>
-<%= button_to "Delete Shelter", "/shelters/#{@shelter.id}", method: :delete %>
+<% if @shelter.pets.any? do |pet| %>
+      <% pet.status == false %>
+    <% end %>
+  <% else %>
+  <%= button_to "Delete Shelter", "/shelters/#{@shelter.id}", method: :delete %>
+  <% end %>
 <%= link_to "Add a new shelter review", "/shelters/#{@shelter.id}/reviews/new" %>
 </section>
 
