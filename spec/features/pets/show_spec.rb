@@ -107,4 +107,29 @@ RSpec.describe "pets detail page", type: :feature do
       expect(page).to have_content("Pets Favorited: 0")
     end
   end
+
+  it 'pet name on each page is link to pet show page' do
+    shelter_1 = Shelter.create!(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+    pet_2 = shelter_1.pets.create!(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/husky_sideways_dog_pictures_.jpg", name: "Zorba", approx_age: 2, sex: "M", shelter_name: shelter_1.name, status: true)
+    application1 = Application.create!(name: "Bob",
+      address: "123 Fake St", city: "San Diego", state: "CA", zip: 92126,
+      phone: "123-456-7890", description: "I love animals!")
+    PetApplication.create(pet: pet_2, application: application1)
+
+    visit "/applications/#{application1.id}"
+
+    within "#pet-#{pet_2.id}" do
+      expect(page).to have_link("Zorba")
+      click_on "Zorba"
+    end
+
+    expect(current_path).to eq("/pets/#{pet_2.id}")
+
+    visit "/pets/#{pet_2.id}/edit"
+
+    expect(page).to have_link("Zorba")
+    click_on "Zorba"
+
+    expect(current_path).to eq("/pets/#{pet_2.id}")
+  end
 end
