@@ -21,4 +21,15 @@ RSpec.describe "shelters detail page", type: :feature do
     expect(page).to have_content("Shelter State: #{shelter_2.state}")
     expect(page).to have_content("Shelter Zip: #{shelter_2.zip}")
   end
+
+  it 'everywhere the shelter name appears it is a link to the shelter show page' do
+    shelter_1 = Shelter.create(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+
+    visit "/shelters/#{shelter_1.id}/edit"
+
+    expect(page).to have_link("Joe's Shelter")
+    click_on "Joe's Shelter"
+
+    expect(current_path).to eq("/shelters/#{shelter_1.id}")
+  end
 end
