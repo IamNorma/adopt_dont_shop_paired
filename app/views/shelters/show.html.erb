@@ -29,7 +29,7 @@
   <p>Review Title: <%= review.title %></p>
   <p>Review Rating: <%= review.rating %></p>
   <p>Review Content: <%= review.content %></p>
-  <p>Review Image: <%= review.image %></p><br>
+  <p>Review Image: <%= image_tag(review.image, alt: review.image, method: :get) unless review.image.blank? %></p><br>
   <%= link_to "Edit Shelter Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %><br>
   <%= button_to "Delete Shelter Review", "/shelters/#{@shelter.id}/reviews/#{review.id}", method: :delete %>
 <% end %>

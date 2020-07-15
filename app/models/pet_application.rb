@@ -3,7 +3,6 @@ class PetApplication < ApplicationRecord
   belongs_to :application
 
   def adoptable?
-
     if status
       "Pending Adoption"
     else

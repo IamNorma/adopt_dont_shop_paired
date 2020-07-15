@@ -1,13 +1,14 @@
 <h1>Favorited Pets:</h1>
 
-<%= @no_pets %>
+<%= @no_pets %><br>
 
 <% @favorited_pets == true %>
-<%= link_to "Adopt your favorited pets", "/applications/new" %>
-<%= link_to "Remove all Favorited Pets", "/favorites", method: :delete %>
+<%= link_to "Adopt your favorited pets", "/applications/new" %><br>
+<%= link_to "Remove all Favorited Pets", "/favorites", method: :delete %><br>
 
 <section class="favorited-pets">
 <% @favorited_pets && @favorited_pets.each do |pet| %>
+<p>These pets have been favorited:</p>
   <section id=pet-<%= pet.id %>>
   <%= image_tag(pet.image, alt: pet.name) %><br>
   <b><p>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p><br>
@@ -17,7 +18,8 @@
 </section>
 
 <section class="applied-for">
+  <p>These pets have been applied for:</p>
   <% @applied_pets.each do |pet| %>
-    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p><br>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}"%></p>
   <% end %>
 </section>
