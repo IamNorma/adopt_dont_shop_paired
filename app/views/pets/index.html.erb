@@ -9,7 +9,9 @@
   <p>Approx. Age: <%= pet.approx_age %></p>
   <%= button_to "Add Pet to Favorites", "/favorites/#{pet.id}", method: :patch %>
   <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit"%>
- <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete%>
+  <% if pet.status == true %>
+    <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete%>
+  <% end %>
  </section>
 <% end %>
 </section>
