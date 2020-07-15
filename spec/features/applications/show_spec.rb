@@ -101,7 +101,6 @@ RSpec.describe "Pet application show page" do
     end
 
     visit "/applications/#{application2.id}"
-    save_and_open_page
 
     within "#pet-#{pet_2.id}" do
       expect(page).to_not have_link("Approve Application")
