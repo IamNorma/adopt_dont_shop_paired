@@ -18,6 +18,8 @@
 <% else %>
   <%= button_to "Add Pet to Favorites", "/favorites/#{@pet.id}", method: :patch %>
 <% end %>
-<%= button_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %>
+<% if @pet.status == true %>
+  <%= button_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %>
+<% end %>
 <%= link_to "View all applications for this pet", "/pets/#{@pet.id}/applications" %>
 </section>

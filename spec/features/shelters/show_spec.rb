@@ -22,6 +22,17 @@ RSpec.describe "shelters detail page", type: :feature do
     expect(page).to have_content("Shelter Zip: #{shelter_2.zip}")
   end
 
+  it 'everywhere the shelter name appears it is a link to the shelter show page' do
+    shelter_1 = Shelter.create(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+
+    visit "/shelters/#{shelter_1.id}/edit"
+
+    expect(page).to have_link("Joe's Shelter")
+    click_on "Joe's Shelter"
+
+    expect(current_path).to eq("/shelters/#{shelter_1.id}")
+  end
+
   it "displays shelter statistics" do
     shelter_1 = Shelter.create!(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
     pet_1 = shelter_1.pets.create!(image: "/Users/dan/turing/2module/adopt_dont_shop_2005/app/assets/images/afghanhound_dog_pictures_.jpg", name: "Fido", approx_age: 3, sex: "F", shelter_name: shelter_1.name, description: "A furry friend!", status: true)
@@ -45,7 +56,5 @@ RSpec.describe "shelters detail page", type: :feature do
       expect(page).to have_content "Number of applications on file for pets in this shelter: #{shelter_1.application_count}"
       expect(page).to have_content "Number of applications on file for pets in this shelter: 3"
     end
-
-
   end
 end

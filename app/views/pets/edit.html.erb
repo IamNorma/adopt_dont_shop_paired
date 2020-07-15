@@ -1,4 +1,4 @@
-<h1>Edit <%= @pet.name %> </h1>
+<h1>Edit <%= link_to "#{@pet.name}", "/pets/#{@pet.id}"%></h1>
 
 <section class="form">
 <%= form_tag "/pets/#{@pet.id}", method: :patch do %>
