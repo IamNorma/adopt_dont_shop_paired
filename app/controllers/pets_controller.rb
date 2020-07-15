@@ -17,18 +17,6 @@ class PetsController < ApplicationController
     shelter = Shelter.find(params[:shelter_id])
     @shelter_id = params[:shelter_id]
     pet = shelter.pets.create(pet_params)
-    # pet = Pet.last
-    # pet.write_attribute(:shelter_name, shelter.name) if !pet.nil?
-    # pet.write_attribute(:status, true) if !pet.nil?
-    # if !pet.nil?
-    #   pet.save
-    #   redirect_to "/shelters/#{@shelter_id}/pets"
-    # else
-    #   if !shelter.pets.last.save && !pet.nil?
-    #     flash[:notice] = shelter.pets.last.errors.full_messages
-    #   end
-    #   redirect_to "/shelters/#{@shelter_id}/pets/new"
-    # end
     if pet.save
       redirect_to "/shelters/#{@shelter_id}/pets"
     else
