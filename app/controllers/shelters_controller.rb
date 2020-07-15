@@ -7,8 +7,15 @@ class SheltersController < ApplicationController
   end
 
   def create
-    Shelter.create(shelter_params)
-    redirect_to '/shelters'
+    shelter = Shelter.create(shelter_params)
+    if shelter.save
+      redirect_to '/shelters'
+    else
+      shelter.errors.full_messages.each do |error|
+        flash[:alert] = error
+      end
+      redirect_to "/shelters/new"
+    end
   end
 
   def edit
@@ -22,14 +29,28 @@ class SheltersController < ApplicationController
 
   def update
     shelter = Shelter.find(params[:id])
-    shelter.update(shelter_params)
-    redirect_to "/shelters/#{shelter.id}"
+    if shelter.update(shelter_params)
+      shelter.update(shelter_params)
+      redirect_to "/shelters/#{shelter.id}"
+    else
+      shelter.errors.full_messages.each do |error|
+        flash[:alert] = error
+      end
+      redirect_to "/shelters/#{shelter.id}/edit"
+    end
   end
 
   def destroy
     shelter = Shelter.find(params[:id])
-    shelter.pets.delete_all
-    shelter.reviews.delete_all
+    applications = []
+    applications = shelter.pets.flat_map do |pet|
+      applications << PetApplication.where("pet_id = ?", pet.id)
+    end.flatten
+    applications.each do |app|
+      app.destroy
+    end
+    shelter.pets.destroy_all
+    shelter.reviews.destroy_all
     shelter.destroy
     redirect_to "/shelters"
   end

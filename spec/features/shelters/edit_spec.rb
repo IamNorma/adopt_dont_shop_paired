@@ -24,4 +24,24 @@ RSpec.describe "Shelter Edit" do
     expect(current_path).to eq("/shelters/#{shelter_1.id}")
     expect(page).to have_content("Bob's Shelter")
   end
+
+  it "flashes an error message that editing isn't possible with incomplete information" do
+    shelter_1 = Shelter.create(name: "Joe's Shelter", address: "123 Apple St.", city: "Denver", state: "CO", zip: 80202)
+
+    visit "/shelters/#{shelter_1.id}/edit"
+
+    fill_in :name, with: ""
+    fill_in :address, with: "222 Nowhere Pl."
+    fill_in :city, with: "Jacksonville"
+    fill_in :state, with: "FL"
+    fill_in :zip, with: 20002
+
+    click_on "Submit"
+
+    within '.messages' do
+      expect(page).to have_content("Name can't be blank")
+    end
+
+    expect(current_path).to eq("/shelters/#{shelter_1.id}/edit")
+  end
 end

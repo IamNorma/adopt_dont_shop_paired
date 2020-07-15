@@ -7,7 +7,7 @@
   <p>Pet Adoptable Status: "Adoptable" </p>
 <% else %>
   <p>Pet Adoptable Status: <%= @pet_app.adoptable? %></p>
-    <p>On hold for <%= @application.name %></p>
+    <p>On hold for <%= link_to "#{@application.name}", "/application/#{@application.id}"%></p>
 <% end %>
 </section>
 

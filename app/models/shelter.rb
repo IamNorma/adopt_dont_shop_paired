@@ -7,4 +7,20 @@ class Shelter < ApplicationRecord
 
   has_many :pets
   has_many :reviews
+
+  def pet_count
+    self.pets.count
+  end
+
+  def average_review_rating
+    self.reviews.average(:rating)
+  end
+
+  def application_count
+    accum = []
+    self.pets.each do |pet|
+      accum << PetApplication.where("pet_id = ?", pet.id)
+    end
+    accum.flatten.count
+  end
 end

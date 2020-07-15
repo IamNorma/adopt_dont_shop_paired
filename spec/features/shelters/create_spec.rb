@@ -26,4 +26,22 @@ RSpec.describe "shelters creation page", type: :feature do
 
     expect(page).to have_content("Joe's Shelter")
   end
+
+  it "flashes a message that creation isn't possible with incomplete information" do
+
+    visit "/shelters/new"
+
+    fill_in("Address", :with => "123 Apple St.")
+    fill_in("City", :with => "Denver")
+    fill_in("State", :with => "CO")
+    fill_in("Zip", :with => 80202)
+
+    click_button('Create Shelter')
+
+    within '.messages' do
+      expect(page).to have_content("Name can't be blank")
+    end
+
+    expect(current_path).to eq("/shelters/new")
+  end
 end
